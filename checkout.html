@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasarela de Pagos</title>
+    <script type="text/javascript" src="https://epayco-checkout-testing.s3.amazonaws.com/checkout.preprod.js"></script>
+</head>
+
+<body>
+    <button type="button" id="checkoutButton">
+        <img src="https://multimedia-epayco-preprod.s3.amazonaws.com/dashboard/btns/btn5.png" alt="Iniciar Compra" style="cursor:pointer;">
+    </button>
+
+    <script>
+        var handler = ePayco.checkout.configure({
+            key: '84d4ff217f3ead0cee2196a6673b0ebc',
+            test: true
+        });
+
+        // Configurar los datos para la pasarela de pago
+        var data = {
+            // Parámetros obligatorios
+            name: "Vestido Mujer Primavera",
+            description: "Vestido Mujer Primavera",
+            invoice: "MURCIA-1234",
+            currency: "cop", // Moneda
+            amount: "5000", // Total del pedido
+            tax_base: "4000", // Subtotal
+            tax: "500", // IVA
+            tax_ico: "500", // Impuesto al consumo
+            country: "co",
+            lang: "es", // Usa el valor de lang
+
+            //Onpage="false" - Standard="true"
+            external: "false",
+
+            // Atributos cliente
+            name_billing: "Nelson Valencia",
+            address_billing: "Carrera 19 numero 14 91",
+            mobilephone_billing: "3005604163",
+            number_doc_billing: "1000898574",
+            email_billing: "email_billing",
+            type_doc_billing: "cc",
+
+            confirmation: "urlConfirmation",
+            response: "urlResponse",
+
+            // Atributos opcionales
+            extra1: "extra1",
+            extra2: "extra2",
+            extra3: "extra3",
+
+            // Deshabilitar métodos de pago
+            //methodsDisable: ["TDC", "PSE", "SP", "CASH", "DP"]
+            method_confirmation: ["TDC", "PSE", "SP", "CASH", "DP"],
+        };
+
+        // Agregar evento al botón para abrir el checkout
+        document.getElementById('checkoutButton').addEventListener('click', function () {
+            handler.open(data);
+        });
+    </script>
+</body>
+
+</html>
